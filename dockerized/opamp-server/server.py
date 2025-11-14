@@ -118,6 +118,11 @@ def show_all_agents(request: Request):
 
     return agent_list
 
+@app.get("/healthz")
+async def health_check():
+    """Simple endpoint for Kubernetes Liveness and Readiness probes."""
+    return {"status": "ok"}
+    
 @app.get("/agent/{agent_id}")
 def get_agent_details(agent_id: str):
     agent = get_agent_or_agents(filter=agent_id, include_details=True)

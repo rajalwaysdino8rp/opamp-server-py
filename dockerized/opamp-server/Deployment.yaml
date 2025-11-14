@@ -19,7 +19,7 @@ spec:
       containers:
       - name: opamp-server
         # IMPORTANT: Replace <acrLoginServer> with your ACR login server
-        image: docker.io/rajalwaysdino8rp/opamp-server-py:1.0.0
+        image: docker.io/rajalwaysdino8rp/opamp-server:1.0.1
         ports:
         - containerPort: 8000 # Matches the EXPOSE and CMD in your Dockerfile
         resources:
@@ -30,13 +30,13 @@ spec:
         # Health Checks are crucial for Kubernetes
         livenessProbe:
           httpGet:
-            path: /
+            path: /healthz
             port: 8000
           initialDelaySeconds: 15
           timeoutSeconds: 5
         readinessProbe:
           httpGet:
-            path: /
+            path: /healthz
             port: 8000
           initialDelaySeconds: 5
           timeoutSeconds: 3
